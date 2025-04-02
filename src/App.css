@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem; /* Giảm padding trong root */
   text-align: center;
 }
 
@@ -11,79 +11,120 @@
     "menu header"
     "menu items"
     "menu content";
-  grid-template-columns: 1fr 3fr; /* Menu chiếm 1 phần, còn lại là content và items */
-  gap: 10px;
-  background-color: #2196F3;
-  padding: 5px;
-}
-
-.container > div {
-  
-  padding: 10px;
+  grid-template-columns: 1fr 3fr;
+  gap: 8px; /* Giảm khoảng cách giữa các phần tử */
+  padding: 10px; /* Giảm padding của container */
 }
 
 .container > div.header {
   grid-area: header;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px; /* Giảm chiều cao của header */
   text-align: center;
+  color: palevioletred;
+}
+
+h2 {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  justify-self: center;
+  font-size: 20px; /* Giảm kích thước chữ của header */
 }
 
 .container > div.menu {
   grid-area: menu;
-  padding: 15px;
- 
+}
+
+.menuItem {
+  margin-top: 8px; /* Giảm margin của menu items */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Giảm khoảng cách giữa các menu items */
+}
+
+.menuItem a {
+  width: 100%;
+  text-align: left;
+  color: white;
+  text-decoration: none;
+  padding: 8px; /* Giảm padding của các menu items */
+  display: block;
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+.menuItem a:hover {
+  background-color: pink;
+}
+
+.menu img {
+  height: 400px; /* Giảm chiều cao của ảnh trong menu */
+  background-color: white;
 }
 
 .container > div.content {
   grid-area: content;
+  padding: 12px; /* Giảm padding của content */
 }
 
-.container > div.items {
+.groupCard {
   grid-area: items;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Chia làm 3 cột cho các card */
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px; /* Giảm khoảng cách giữa các card */
 }
-.header {
-  display: flex;
-}
-.header p {
-  width: 500px;
-  text-align: left;
-}
-.container > div.items .card {
+
+.card {
   background-color: #fff;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  height: 140px; /* Giảm chiều cao của card */
+  width: 230px; /* Giảm chiều rộng của card */
 }
+
 .searchAndIcon {
   display: flex;
   align-items: center;
-  gap: 10px; /* Khoảng cách giữa các phần tử */
+  gap: 8px;
   justify-content: center;
 }
+
 #search {
-  width: 300px;
-  padding: 10px;
+  width: 250px;
+  padding: 8px;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 14px; /* Giảm kích thước chữ */
   border-radius: 20px;
   box-sizing: border-box;
   transition: 0.3s;
+  height: 30px; /* Giảm chiều cao của search input */
 }
+
 .searchAndIcon img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%; /* Bo tròn hình ảnh */
-  background-color: #f0f0f0; /* Nền nhẹ cho hình ảnh */
-  padding: 5px; /* Tạo khoảng cách giữa hình ảnh và nền */
-  object-fit: cover; /* Đảm bảo hình ảnh vừa vặn trong vòng tròn */
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  padding: 5px;
+  object-fit: cover;
   cursor: pointer;
   transition: 0.3s;
 }
-.card {
-  height: 150px;
-  width: 250px;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0; /* Giảm khoảng cách trên và dưới bảng */
+}
+
+th, td {
+  padding: 10px 12px; /* Giảm padding trong bảng */
+  text-align: left;
+  border: 1px solid #ddd;
 }
