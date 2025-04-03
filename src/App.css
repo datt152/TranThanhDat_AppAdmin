@@ -1,18 +1,20 @@
 #root {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0.5rem; /* Giảm padding trong root từ 1rem xuống 0.5rem */
+  padding: 0.5rem; 
   text-align: center;
 }
 
-.container {  display: grid;
+.container {  
+  display: grid;
   grid-template-areas:
     "menu header"
     "menu items"
     "menu content";
   grid-template-columns: 1fr 3fr;
-  gap: 4px; /* Giảm gap từ 8px xuống 4px */
-  padding: 5px; /* Giảm padding từ 10px xuống 5px */
+  gap: 4px; 
+  padding: 5px; 
+  overflow: auto;
 
 
 }
@@ -22,7 +24,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px; /* Giảm chiều cao từ 80px xuống 60px */
+  height: 60px; 
   text-align: center;
   color: palevioletred;
 }
@@ -32,7 +34,7 @@ h2 {
   margin: 0;
   text-align: left;
   justify-self: center;
-  font-size: 18px; /* Giảm kích thước chữ từ 20px xuống 18px */
+  font-size: 18px;
 }
 
 .container > div.menu {
@@ -41,10 +43,10 @@ h2 {
 }
 
 .menuItem {
-  margin-top: 4px; /* Giảm margin từ 8px xuống 4px */
+  margin-top: 4px;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px; /* Giảm gap từ 8px xuống 4px */
+  gap: 4px;
 }
 
 .menuItem a {
@@ -52,7 +54,7 @@ h2 {
   text-align: left;
   color: grey;
   text-decoration: none;
-  padding: 4px; /* Giảm padding từ 8px xuống 4px */
+  padding: 4px; 
   display: block;
   background-color: transparent;
   border-radius: 8px;
@@ -67,11 +69,11 @@ h2 {
   height: 350px;
   grid-area: content;
   background-color: white;
-  padding: 8px; /* Giảm padding từ 12px xuống 8px */
+  padding: 8px;
 }
 
 .items {
-  height: 200px;
+  height: 150px;
   grid-area: items;
   background-color: white;
 }
@@ -80,17 +82,18 @@ h2 {
   margin-top: 5px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px; /* Giảm gap từ 8px xuống 4px */
+  gap: 4px;
+
 }
 
 .card {
   background-color: #fff;
-  padding: 10px; /* Giảm padding từ 15px xuống 10px */
+  padding: 10px; 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  height: 120px; /* Giảm chiều cao từ 140px xuống 120px */
-  width: 200px; /* Giảm chiều rộng từ 230px xuống 200px */
+  height: 100px; 
+  width: 200px;
   display: flex;
   background-color: rgb(185, 244, 224);
 }
@@ -98,29 +101,29 @@ h2 {
 .searchAndIcon {
   display: flex;
   align-items: center;
-  gap: 4px; /* Giảm gap từ 8px xuống 4px */
+  gap: 4px; 
   justify-content: center;
 }
 
 #search {
-  width: 200px; /* Giảm chiều rộng từ 250px xuống 200px */
-  padding: 6px; /* Giảm padding từ 8px xuống 6px */
+  width: 200px;
+  padding: 6px; 
   border: none;
   outline: none;
-  font-size: 12px; /* Giảm kích thước chữ từ 14px xuống 12px */
+  font-size: 12px;
   border-radius: 20px;
   box-sizing: border-box;
   transition: 0.3s;
   background-color: gainsboro;
-  height: 25px; /* Giảm chiều cao từ 30px xuống 25px */
+  height: 25px; 
 }
 
 img {
-  width: 24px; /* Giảm kích thước từ 28px xuống 24px */
+  width: 24px; 
   height: 24px;
   border-radius: 50%;
   background-color: white;
-  padding: 4px; /* Giảm padding từ 5px xuống 4px */
+  padding: 4px;
   object-fit: cover;
   cursor: pointer;
   transition: 0.3s;
@@ -130,10 +133,11 @@ img {
   width: 50%;
 }
 th, td {
-  padding: 8px 10px; /* Giảm padding từ 10px 12px xuống 8px 10px */
+  padding: 5px 5px; 
   text-align: left;
   border: 1px solid #ddd;
 }
+
 .cardContent {
   width: 150px;
   height: 100%;
@@ -156,4 +160,38 @@ justify-content: flex-end;
 .contentTitle {
   display: flex;
   margin-bottom: 10px;
+}
+.status-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-text {
+  flex: 1;
+  text-align: center;
+}
+
+.edit-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  color: palevioletred;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.edit-button img {
+  border-radius: 0%;
+}
+.Modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  margin: auto;
+  margin-top: 150px;
+  text-align: center;
+  box-shadow: 1px 1px 2px black;
 }
