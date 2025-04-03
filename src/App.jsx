@@ -1,7 +1,35 @@
+import { useEffect } from 'react';
 import './App.css'
-
+import bellIcon from './assets/bell.png'
+import helpIcon from './assets/question.png'
+import avatar from './assets/react.svg'
+import cartIcon from './assets/shopping-cart.png'
+import userIcon from './assets/user.png'
+import coinIcon from './assets/coin.png'
+import { useState } from 'react';
 function App() {
+  const [totals, setTotals] = useState([]);
+useEffect(() => {
+    fetch('https://67ee54bac11d5ff4bf792fe7.mockapi.io/metrics') 
+      .then(response => response.json())
+      .then(data => {
+        const totalTurnoverValue = data.reduce((sum, item) => {
+          const reducedTurnover = Math.floor(item.turnover * 0.1);
+          return sum + reducedTurnover;
+        }, 0);
 
+        const totalProfitValue = data.reduce((sum, item) => {
+          const reducedProfit = Math.floor(item.profit * 0.1);
+          return sum + reducedProfit;
+        }, 0);
+        const totalsData = [
+          { label: 'Turnover', value: totalTurnoverValue, icon: cartIcon  },
+          { label: 'Profit', value: totalProfitValue, icon: coinIcon  },
+          { label: 'New customer', value: data.length, icon: userIcon  }
+        ];
+        setTotals(totalsData); 
+      });
+  }, []);
   return (
       <>
       <div className="container">
@@ -9,9 +37,10 @@ function App() {
           <h2>Dashboard</h2> 
           <div className="searchAndIcon">
               <input type="text" name="" id="search" placeholder='Search...'/>
-              <img src="" alt="" />
-              <img src="" alt="" />
-              <img src="" alt="" />
+              <img src={helpIcon} alt="" />
+              <img src={bellIcon} alt="" />
+              <img src={avatar} alt="" />
+              
               
           </div>
         </div>
@@ -25,14 +54,25 @@ function App() {
             <a href="#">Messages</a>
             <a href="#">Integrations</a>
           </div>
-          <img src="" alt="" />
+
         </div>
         <div className="items">
           <h2>Over view</h2>
           <div className="groupCard">
-            <div className="card"></div>
-            <div className="card"></div>
-            <div className="card"></div>
+            {totals.map((value,index) => {
+              return (
+                <div key={index} className="card">
+              <div className="cardContent">
+                  <p>{value.label}</p>
+                  <h3>{value.value}</h3>
+              </div>
+              <div className="cardIcon">
+                  <img src={value.icon} alt="" />
+              </div>
+            </div>
+              )
+            })}
+            
           </div>
         </div>
         <div className="content">
@@ -82,7 +122,7 @@ function App() {
       </div>
       </>
 
-  )
+  );
 }
 
 export default App
