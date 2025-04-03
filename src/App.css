@@ -5,9 +5,7 @@
   text-align: center;
 }
 
-.container {
-  box-shadow: 1px 1px 2px black;
-  display: grid;
+.container {  display: grid;
   grid-template-areas:
     "menu header"
     "menu items"
@@ -118,8 +116,8 @@ h2 {
 }
 
 img {
-  width: 30px; /* Giảm kích thước từ 28px xuống 24px */
-  height: 30px;
+  width: 24px; /* Giảm kích thước từ 28px xuống 24px */
+  height: 24px;
   border-radius: 50%;
   background-color: white;
   padding: 4px; /* Giảm padding từ 5px xuống 4px */
@@ -128,12 +126,9 @@ img {
   transition: 0.3s;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 10px 0; /* Giảm margin từ 15px 0 xuống 10px 0 */
+.contentTitle h2 {
+  width: 50%;
 }
-
 th, td {
   padding: 8px 10px; /* Giảm padding từ 10px 12px xuống 8px 10px */
   text-align: left;
@@ -146,4 +141,19 @@ th, td {
 .cardIcon {
   width: 50px;
   height: 100%;
+}
+.groupBtn {
+  gap: 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 50%;
+justify-content: flex-end;
+}
+.groupBtn button {
+  color: palevioletred;
+  border: 1px solid palevioletred;
+}
+.contentTitle {
+  display: flex;
+  margin-bottom: 10px;
 }
