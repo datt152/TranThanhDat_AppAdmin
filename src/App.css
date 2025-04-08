@@ -65,6 +65,21 @@ h2 {
   color: white;
 }
 
+.menuItem a {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 12px;
+  display: block;
+}
+
+.menuItem a.active {
+  color: #007bff;
+  font-weight: bold;
+  border-left: 3px solid #007bff;
+  background-color: #f0f0f0;
+}
+
+
 .container > div.content {
   height: 350px;
   grid-area: content;
@@ -208,7 +223,7 @@ justify-content: flex-end;
 
 }
 
-.Modal input {
+.Modal > input {
   width: 60%;
   padding: 8px;
   border: 1px solid #ccc;
