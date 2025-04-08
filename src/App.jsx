@@ -13,7 +13,7 @@ function App() {
   const [totals, setTotals] = useState([]);
 
   useEffect(() => {
-    fetch("/api/metrics.json")
+    fetch("https://67ee9742c11d5ff4bf7a36cc.mockapi.io/metrics")
       .then((response) => response.json())
       .then((data) => {
         const totalTurnoverValue = data.reduce((sum, item) => {
