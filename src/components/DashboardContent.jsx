@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-Modal.setAppElement('#root')
+Modal.setAppElement('#root');
 import editIcon from "../assets/pen.png";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+
 function DashboardContent() {
   const [customers, setCustomers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,26 +14,50 @@ function DashboardContent() {
     setModalContent({ ...customer });
     setIsModalOpen(true);
   };
+
+  const openAddModal = () => {
+    setModalContent({
+      name: "",
+      company: "",
+      orderValue: "",
+      orderDate: "",
+      city: "",
+      avatar: "https://i.pravatar.cc/150?img=" + Math.floor(Math.random() * 70), // ảnh random
+    });
+    setIsModalOpen(true);
+  };
+
   const handleSave = async () => {
     try {
-      const res = await fetch(`https://67ee9742c11d5ff4bf7a36cc.mockapi.io/customers/${modalContent.id}`, {
-        method: "PUT",
+      const method = modalContent.id ? "PUT" : "POST";
+      const url = modalContent.id
+        ? `https://67ee9742c11d5ff4bf7a36cc.mockapi.io/customers/${modalContent.id}`
+        : "https://67ee9742c11d5ff4bf7a36cc.mockapi.io/customers";
+
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(modalContent),
       });
-      const updated = await res.json();
-      setCustomers(cus => cus.map(c => c.id === updated.id ? updated : c));
-      alert("Thay đổi thành công")
+
+      const data = await res.json();
+      setCustomers((prev) =>
+        method === "POST"
+          ? [...prev, data]
+          : prev.map((c) => (c.id === data.id ? data : c))
+      );
+
+      alert(method === "POST" ? "Thêm thành công!" : "Cập nhật thành công!");
       closeModal();
     } catch (err) {
       console.error(err);
       alert("Lưu thất bại!");
     }
   };
+
   const handleChange = (field) => (e) =>
     setModalContent({ ...modalContent, [field]: e.target.value });
-  
-  
+
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
@@ -48,6 +73,7 @@ function DashboardContent() {
       <div className="contentTitle">
         <h2>Detail Report</h2>
         <div className="groupBtn">
+          <button onClick={openAddModal}>Add</button>
           <button>Import</button>
           <button>Export</button>
         </div>
@@ -78,25 +104,9 @@ function DashboardContent() {
             </div>
           )}
         />
-
-        <Column
-          field="company"
-          header="Company"
-          sortable
-          style={{ width: "20%" }}
-        />
-        <Column
-          field="orderValue"
-          header="Order Value"
-          sortable
-          style={{ width: "15%" }}
-        />
-        <Column
-          field="orderDate"
-          header="Order Date"
-          sortable
-          style={{ width: "15%" }}
-        />
+        <Column field="company" header="Company" sortable style={{ width: "20%" }} />
+        <Column field="orderValue" header="Order Value" sortable style={{ width: "15%" }} />
+        <Column field="orderDate" header="Order Date" sortable style={{ width: "15%" }} />
         <Column
           field="city"
           header="City"
@@ -107,11 +117,8 @@ function DashboardContent() {
               <div className="status-text">
                 <span>{rowData.city}</span>
               </div>
-              <button
-                className="edit-button"
-                onClick={() => openModal(rowData)}
-              >
-                <img src={editIcon} alt="" />
+              <button className="edit-button" onClick={() => openModal(rowData)}>
+                <img src={editIcon} alt="edit" />
               </button>
             </div>
           )}
@@ -121,51 +128,43 @@ function DashboardContent() {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        contentLabel="Edit Customer Status"
+        contentLabel="Edit Customer"
         className="Modal"
       >
-        <h2>Edit Customer Status</h2>
+        <h2>{modalContent?.id ? "Edit Customer" : "Add Customer"}</h2>
         {modalContent && (
           <div>
             <p>
               <strong>Name:</strong>
-              <input type="text" value={modalContent.name}  onChange={handleChange("name")}/>
+              <input type="text" value={modalContent.name} onChange={handleChange("name")} />
             </p>
             <p>
               <strong>Company:</strong>
-              <input type="text" value={modalContent.company} onChange={handleChange("company")}/>
+              <input type="text" value={modalContent.company} onChange={handleChange("company")} />
             </p>
             <p>
               <strong>Order Value:</strong>
-              <input type="text" value={modalContent.orderValue}  onChange={handleChange("orderValue")}/>
+              <input type="text" value={modalContent.orderValue} onChange={handleChange("orderValue")} />
             </p>
             <p>
               <strong>Order Date:</strong>
-              <input type="text" value={modalContent.orderDate}  onChange={handleChange("orderDate")}/>
+              <input type="text" value={modalContent.orderDate} onChange={handleChange("orderDate")} />
             </p>
             <p>
               <strong>City:</strong>
-              <input type="text" value={modalContent.city}  onChange={handleChange("city")}/>
+              <input type="text" value={modalContent.city} onChange={handleChange("city")} />
             </p>
             <button
-              style={{
-                backgroundColor: "green",
-                color: "white",
-                marginRight: "5px",
-              }}
+              style={{ backgroundColor: "green", color: "white", marginRight: "5px" }}
               onClick={handleSave}
             >
-              Save changes
+              Save
             </button>
             <button
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                marginRight: "5px",
-              }}
+              style={{ backgroundColor: "red", color: "white", marginRight: "5px" }}
               onClick={closeModal}
             >
-              Close Modal
+              Cancel
             </button>
           </div>
         )}
