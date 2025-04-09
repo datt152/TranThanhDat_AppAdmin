@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Modal from "react-modal";
 import "./App.css";
 import bellIcon from "./assets/bell.png";
 import helpIcon from "./assets/question.png";
@@ -6,14 +7,23 @@ import avatar from "./assets/react.svg";
 import cartIcon from "./assets/shopping-cart.png";
 import userIcon from "./assets/user.png";
 import coinIcon from "./assets/coin.png";
+
 import { useState } from "react";
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-        
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 function App() {
   const [totals, setTotals] = useState([]);
-  const [customers, setCustomers] = useState([]); 
+  const [customers, setCustomers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null); 
+
+  const openModal = (customer) => {
+    setModalContent(customer); 
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
+
   useEffect(() => {
     fetch("https://67ee9742c11d5ff4bf7a36cc.mockapi.io/metrics")
       .then((response) => response.json())
@@ -34,13 +44,13 @@ function App() {
         ];
         setTotals(totalsData); 
       });
-      fetch("https://67ee9742c11d5ff4bf7a36cc.mockapi.io/customers")
+    fetch("https://67ee9742c11d5ff4bf7a36cc.mockapi.io/customers")
       .then((response) => response.json())
       .then((data) => {
         setCustomers(data);  
       });
   }, []);
-  
+
   return (
       <>
       <div className="container">
@@ -70,20 +80,19 @@ function App() {
         <div className="items">
           <h2>Over view</h2>
           <div className="groupCard">
-            {totals.map((value,index) => {
+            {totals.map((value, index) => {
               return (
                 <div key={index} className="card">
-              <div className="cardContent">
-                  <p>{value.label}</p>
-                  <h3>{value.value}</h3>
-              </div>
-              <div className="cardIcon">
-                  <img src={value.icon} alt="" />
-              </div>
-            </div>
-              )
+                  <div className="cardContent">
+                    <p>{value.label}</p>
+                    <h3>{value.value}</h3>
+                  </div>
+                  <div className="cardIcon">
+                    <img src={value.icon} alt="" />
+                  </div>
+                </div>
+              );
             })}
-            
           </div>
         </div>
         <div className="content">
@@ -93,20 +102,50 @@ function App() {
             <button>Import</button><button>Export</button>
           </div>
           </div>
-          <DataTable value={customers}  paginator rows={5} sortMode="multiple" tableStyle={{ minWidth: '50rem' }}>
-            <Column field="name" header="Name" sortable style={{ width: '20%' }} ></Column>
-            <Column field="company" header="Company" sortable style={{ width: '20%' }} ></Column>
-            <Column field="orderValue" header="Order Value" sortable style={{ width: '20%' }} ></Column>
-            <Column field="orderDate" header="Order Date" sortable style={{ width: '15%' }} ></Column>
-            <Column 
-              field="city" 
-              header="City" 
-              sortable 
-              style={{ width: '25%' }} 
+          <DataTable
+            value={customers}
+            paginator
+            rows={4}
+            sortMode="multiple"
+            tableStyle={{ minWidth: "50rem" }}
+          >
+            <Column
+              field="name"
+              header="Name"
+              sortable
+              style={{ width: "25%" }}
+            ></Column>
+            <Column
+              field="company"
+              header="Company"
+              sortable
+              style={{ width: "20%" }}
+            ></Column>
+            <Column
+              field="orderValue"
+              header="Order Value"
+              sortable
+              style={{ width: "15%" }}
+            ></Column>
+            <Column
+              field="orderDate"
+              header="Order Date"
+              sortable
+              style={{ width: "15%" }}
+            ></Column>
+            <Column
+              field="city"
+              header="City"
+              sortable
+              style={{ width: "25%" }}
               body={(rowData) => (
-                <div>
-                  <span style={{marginRight: "5px"}}>{rowData.city}</span>
-                  <button>Edit</button>
+                <div className="status-container">
+                  <div className="status-text">
+                    <span>{rowData.city}</span>
+                  </div>
+                  <button className="edit-button" onClick={() => openModal(rowData)}>
+                    Edit
+                  </button>
                 </div>
               )}
             ></Column>
@@ -115,6 +154,24 @@ function App() {
         </div>
 
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Edit Customer Status"
+        className="Modal"
+      >
+        <h2>Edit Customer Status</h2>
+        {modalContent && (
+          <div>
+            <p><strong>Name:</strong> {modalContent.name}</p>
+            <p><strong>Company:</strong> {modalContent.company}</p>
+            <p><strong>Order Value:</strong> {modalContent.orderValue}</p>
+            <p><strong>Order Date:</strong> {modalContent.orderDate}</p>
+            <p><strong>Status:</strong> {modalContent.status}</p>
+            <button style={{backgroundColor: "red", color: "white"}} onClick={closeModal}>Close Modal</button>
+          </div>
+        )}
+      </Modal>
     </>
   );
 }

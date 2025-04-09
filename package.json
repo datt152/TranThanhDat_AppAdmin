@@ -13,11 +13,15 @@
     "react": "^19.0.0",
 <<<<<<< HEAD
     "react-dom": "^19.0.0",
+<<<<<<< HEAD
     "react-modal": "^3.16.3",
     "react-router-dom": "^7.4.1"
 =======
     "react-dom": "^19.0.0"
 >>>>>>> parent of dbe583f (commit click edit modal)
+=======
+    "react-modal": "^3.16.3"
+>>>>>>> parent of 46f1a71 (commit connect modal)
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

@@ -160,3 +160,37 @@ justify-content: flex-end;
   display: flex;
   margin-bottom: 10px;
 }
+.status-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-text {
+  flex: 1;
+  text-align: center;
+}
+
+.edit-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  color: palevioletred;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.edit-button img {
+  border-radius: 0%;
+}
+.Modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  margin: auto;
+  margin-top: 150px;
+  text-align: center;
+  box-shadow: 1px 1px 2px black;
+}
