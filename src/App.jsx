@@ -27,7 +27,7 @@ function App() {
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
-    fetch("https://67ee9742c11d5ff4bf7a36cc.mockapi.io/metrics")
+    fetch("/api/metrics.json")
       .then((response) => response.json())
       .then((data) => {
         const totalTurnoverValue = data.reduce((sum, item) => {
