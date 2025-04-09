@@ -73,10 +73,10 @@ h2 {
 }
 
 .menuItem a.active {
-  color: #007bff;
+  color: white;
   font-weight: bold;
-  border-left: 3px solid #007bff;
-  background-color: #f0f0f0;
+
+  background-color: deeppink;
 }
 
 
