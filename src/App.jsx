@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import Modal from "react-modal";
+import { NavLink, Outlet } from 'react-router-dom';
+
 import "./App.css";
 import bellIcon from "./assets/bell.png";
 import helpIcon from "./assets/question.png";
@@ -68,13 +70,14 @@ function App() {
         <div className="menu">
           <h2>Logo</h2>
           <div className="menuItem">
-            <a href="#">Dashboard</a>
-            <a href="#">Projects</a>
-            <a href="#">Teams</a>
-            <a href="#">Analytics</a>
-            <a href="#">Messages</a>
-            <a href="#">Integrations</a>
-          </div>
+  <NavLink to="/" end>Dashboard</NavLink>
+  <NavLink to="/projects">Projects</NavLink>
+  <NavLink to="/teams">Teams</NavLink>
+  <NavLink to="/analytics">Analytics</NavLink>
+  <NavLink to="/messages">Messages</NavLink>
+  <NavLink to="/integrations">Integrations</NavLink>
+</div>
+
 
         </div>
         <div className="items">
@@ -96,61 +99,7 @@ function App() {
           </div>
         </div>
         <div className="content">
-          <div className="contentTitle">
-          <h2>Detail Report</h2>
-          <div className="groupBtn">
-            <button>Import</button><button>Export</button>
-          </div>
-          </div>
-          <DataTable
-            value={customers}
-            paginator
-            rows={4}
-            sortMode="multiple"
-            tableStyle={{ minWidth: "50rem" }}
-          >
-            <Column
-              field="name"
-              header="Name"
-              sortable
-              style={{ width: "25%" }}
-            ></Column>
-            <Column
-              field="company"
-              header="Company"
-              sortable
-              style={{ width: "20%" }}
-            ></Column>
-            <Column
-              field="orderValue"
-              header="Order Value"
-              sortable
-              style={{ width: "15%" }}
-            ></Column>
-            <Column
-              field="orderDate"
-              header="Order Date"
-              sortable
-              style={{ width: "15%" }}
-            ></Column>
-            <Column
-              field="city"
-              header="City"
-              sortable
-              style={{ width: "25%" }}
-              body={(rowData) => (
-                <div className="status-container">
-                  <div className="status-text">
-                    <span>{rowData.city}</span>
-                  </div>
-                  <button className="edit-button" onClick={() => openModal(rowData)}>
-                    Edit
-                  </button>
-                </div>
-              )}
-            ></Column>
-            
-          </DataTable>
+          <Outlet/>
         </div>
 
       </div>

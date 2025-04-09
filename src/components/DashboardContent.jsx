@@ -117,7 +117,7 @@ function DashboardContent() {
                 <span>{rowData.city}</span>
               </div>
               <button className="edit-button" onClick={() => openModal(rowData)}>
-                <img src={editIcon} alt="edit" />
+                Edit
               </button>
             </div>
           )}
