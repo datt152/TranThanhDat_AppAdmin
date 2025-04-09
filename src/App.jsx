@@ -1,18 +1,23 @@
-import { useEffect } from 'react';
-import './App.css'
-import bellIcon from './assets/bell.png'
-import helpIcon from './assets/question.png'
-import avatar from './assets/react.svg'
-import cartIcon from './assets/shopping-cart.png'
-import userIcon from './assets/user.png'
-import coinIcon from './assets/coin.png'
-import { useState } from 'react';
+import { useEffect } from "react";
+import "./App.css";
+import bellIcon from "./assets/bell.png";
+import helpIcon from "./assets/question.png";
+import avatar from "./assets/react.svg";
+import cartIcon from "./assets/shopping-cart.png";
+import userIcon from "./assets/user.png";
+import coinIcon from "./assets/coin.png";
+import { useState } from "react";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+        
+
 function App() {
   const [totals, setTotals] = useState([]);
-useEffect(() => {
-    fetch('https://67ee9742c11d5ff4bf7a36cc.mockapi.io/metrics') 
-      .then(response => response.json())
-      .then(data => {
+  const [customers, setCustomers] = useState([]); 
+  useEffect(() => {
+    fetch("https://67ee9742c11d5ff4bf7a36cc.mockapi.io/metrics")
+      .then((response) => response.json())
+      .then((data) => {
         const totalTurnoverValue = data.reduce((sum, item) => {
           const reducedTurnover = Math.floor(item.turnover * 0.1);
           return sum + reducedTurnover;
@@ -29,7 +34,13 @@ useEffect(() => {
         ];
         setTotals(totalsData); 
       });
+      fetch("https://67ee9742c11d5ff4bf7a36cc.mockapi.io/customers")
+      .then((response) => response.json())
+      .then((data) => {
+        setCustomers(data);  
+      });
   }, []);
+  
   return (
       <>
       <div className="container">
@@ -76,52 +87,35 @@ useEffect(() => {
           </div>
         </div>
         <div className="content">
-          <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Company</th>
-                  <th>Order Value</th>
-                  <th>Order Date</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                </tr>
-              </tbody>
-          </table>
+          <div className="contentTitle">
+          <h2>Detail Report</h2>
+          <div className="groupBtn">
+            <button>Import</button><button>Export</button>
+          </div>
+          </div>
+          <DataTable value={customers}  paginator rows={5} sortMode="multiple" tableStyle={{ minWidth: '50rem' }}>
+            <Column field="name" header="Name" sortable style={{ width: '20%' }} ></Column>
+            <Column field="company" header="Company" sortable style={{ width: '20%' }} ></Column>
+            <Column field="orderValue" header="Order Value" sortable style={{ width: '20%' }} ></Column>
+            <Column field="orderDate" header="Order Date" sortable style={{ width: '15%' }} ></Column>
+            <Column 
+              field="city" 
+              header="City" 
+              sortable 
+              style={{ width: '25%' }} 
+              body={(rowData) => (
+                <div>
+                  <span style={{marginRight: "5px"}}>{rowData.city}</span>
+                  <button>Edit</button>
+                </div>
+              )}
+            ></Column>
+            
+          </DataTable>
         </div>
 
       </div>
-      </>
-
+    </>
   );
 }
 

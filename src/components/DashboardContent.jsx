@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 Modal.setAppElement('#root');
-import editIcon from "../assets/pen.png";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
